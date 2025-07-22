@@ -191,12 +191,12 @@ jobs:
             echo "Not supported format of Clang!"
           fi
 
-      - name: Get Kernel Source
-        run: |
+          - name: Get Kernel Source
+                 run: |
           cd $GITHUB_WORKSPACE
-          git clone https://github.com/Lavender-LineageOS/kernel_xiaomi_lavender.git --depth=1
+          git clone https://github.com/Lavender-LineageOS/kernel_xiaomi_lavender.git device_kernel --depth=1
           if [[ -n "${{ env.DEFCONFIG_SOURCE }}" ]]; then
-            wget ${{ env.DEFCONFIG_SOURCE }} -O device_kernel/arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
+          wget ${{ env.DEFCONFIG_SOURCE }} -O device_kernel/arch/arm64/configs/${{ env.DEFCONFIG_NAME }}
           fi
           echo "KERNEL_VERSION=$(head -n 3 device_kernel/Makefile | grep -E 'VERSION|PATCHLEVEL' | awk '{print $3}' | paste -sd '.')" >> $GITHUB_ENV
 
